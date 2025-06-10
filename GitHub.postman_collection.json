@@ -74,7 +74,7 @@
 							"\r",
 							"pm.test(\"Response contains expected visibility of repo\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.private).to.eql(\"false\");\r",
+							"    pm.expect(jsonData.private).to.eql(false);\r",
 							"});\r",
 							""
 						],
