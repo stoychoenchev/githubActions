@@ -23,5 +23,5 @@ jobs:
 
       - name: Run Postman collection
         run: |
-          newman run postman_collection.json -e postman_environment.json \
+          newman run GitHub.postman_collection.json -e GitHubAPIenv.postman_environment.json \
             --env-var "token=${{ secrets.POSTMAN_TOKEN }}"
