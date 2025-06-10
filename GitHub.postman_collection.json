@@ -60,6 +60,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"const repo_name = pm.environment.get(\"repo_name\");\r",
+							"\r",
+							"\r",
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
 							"});\r",
@@ -131,6 +134,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"const updatedrepo_name = pm.environment.get(\"updatedrepo_name\");\r",
+							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
@@ -202,6 +207,9 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
+							"\r",
+							"const defaultrepo = pm.environment.get(\"defaultrepo\");\r",
+							"\r",
 							"\r",
 							"pm.test(\"Verify that the name is equal to the defaultrepo variable value.\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
