@@ -60,13 +60,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response contains expected fullname\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"{{repo_name}}\");\r",
+							"    pm.expect(jsonData.name).to.eql(repo_name);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response contains expected visibility of repo\", function () {\r",
@@ -138,7 +138,7 @@
 							"\r",
 							"pm.test(\"Response contains expected visibility of repo\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"{{updatedrepo_name}}\");\r",
+							"    pm.expect(jsonData.name).to.eql(updatedrepo_name);\r",
 							"});\r",
 							""
 						],
@@ -205,7 +205,7 @@
 							"\r",
 							"pm.test(\"Verify that the name is equal to the defaultrepo variable value.\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"{{defaultrepo}}\");\r",
+							"    pm.expect(jsonData.name).to.eql(defaultrepo)\r",
 							"});"
 						],
 						"type": "text/javascript",
