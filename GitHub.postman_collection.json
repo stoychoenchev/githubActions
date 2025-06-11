@@ -144,6 +144,51 @@
 			"response": []
 		},
 		{
+			"name": "Wait",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/delay/5",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"delay",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update Repo",
 			"event": [
 				{
@@ -152,15 +197,16 @@
 						"exec": [
 							"const updatedrepo_name = pm.environment.get(\"updatedrepo_name\");\r",
 							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
 							"\r",
 							"\r",
-							"pm.test(\"Response contains expected visibility of repo\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(updatedrepo_name);\r",
-							"});\r",
+							"    pm.test(\"Response contains expected visibility of repo\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData.name).to.eql(updatedrepo_name);\r",
+							"    });\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript",
@@ -171,26 +217,6 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"let attempts = pm.environment.get(\"update_retry_attempts\") || 0;\r",
-							"\r",
-							"if (attempts < 3) {\r",
-							"    pm.sendRequest({\r",
-							"        url: `https://api.github.com/repos/${pm.environment.get(\"owner\")}/${pm.environment.get(\"repo_name\")}`,\r",
-							"        method: 'GET',\r",
-							"        header: {\r",
-							"            'Authorization': `Bearer ${pm.environment.get(\"token\")}`,\r",
-							"            'Accept': 'application/vnd.github+json'\r",
-							"        }\r",
-							"    }, function (err, res) {\r",
-							"        if (res.code === 404) {\r",
-							"            attempts++;\r",
-							"            pm.environment.set(\"update_retry_attempts\", attempts);\r",
-							"            postman.setNextRequest(\"Update Repo\"); // retry the same request\r",
-							"        } else {\r",
-							"            pm.environment.unset(\"update_retry_attempts\"); // reset\r",
-							"        }\r",
-							"    });\r",
-							"}\r",
 							""
 						],
 						"type": "text/javascript",
@@ -292,6 +318,51 @@
 						"repos",
 						"{{owner}}",
 						"{{defaultrepo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Wait 2nd",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/delay/5",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"delay",
+						"5"
 					]
 				}
 			},
