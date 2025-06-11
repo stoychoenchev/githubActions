@@ -81,6 +81,22 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let timestamp = new Date().getTime();\r",
+							"let repoName = `AutoRepo_${timestamp}`;\r",
+							"let updatedName = `UpdatedRepo_${timestamp}`;\r",
+							"\r",
+							"pm.environment.set(\"repo_name\", repoName);\r",
+							"pm.environment.set(\"updatedrepo_name\", updatedName);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -145,6 +161,36 @@
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.name).to.eql(updatedrepo_name);\r",
 							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let attempts = pm.environment.get(\"update_retry_attempts\") || 0;\r",
+							"\r",
+							"if (attempts < 3) {\r",
+							"    pm.sendRequest({\r",
+							"        url: `https://api.github.com/repos/${pm.environment.get(\"owner\")}/${pm.environment.get(\"repo_name\")}`,\r",
+							"        method: 'GET',\r",
+							"        header: {\r",
+							"            'Authorization': `Bearer ${pm.environment.get(\"token\")}`,\r",
+							"            'Accept': 'application/vnd.github+json'\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        if (res.code === 404) {\r",
+							"            attempts++;\r",
+							"            pm.environment.set(\"update_retry_attempts\", attempts);\r",
+							"            postman.setNextRequest(\"Update Repo\"); // retry the same request\r",
+							"        } else {\r",
+							"            pm.environment.unset(\"update_retry_attempts\"); // reset\r",
+							"        }\r",
+							"    });\r",
+							"}\r",
 							""
 						],
 						"type": "text/javascript",
@@ -260,7 +306,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(204);\r",
-							"});"
+							"});\r",
+							"pm.environment.unset(\"repo_name\");\r",
+							"pm.environment.unset(\"updatedrepo_name\");\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -281,7 +330,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://api.github.com/repos/{{owner}}/{{defaultrepo}}",
+					"raw": "https://api.github.com/repos/{{owner}}/{{updatedrepo_name}}",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -291,7 +340,7 @@
 					"path": [
 						"repos",
 						"{{owner}}",
-						"{{defaultrepo}}"
+						"{{updatedrepo_name}}"
 					]
 				}
 			},
