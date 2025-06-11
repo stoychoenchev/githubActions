@@ -144,51 +144,6 @@
 			"response": []
 		},
 		{
-			"name": "Wait",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://postman-echo.com/delay/5",
-					"protocol": "https",
-					"host": [
-						"postman-echo",
-						"com"
-					],
-					"path": [
-						"delay",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Update Repo",
 			"event": [
 				{
@@ -217,7 +172,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"setTimeout(function(){}, 5000);"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -324,51 +279,6 @@
 			"response": []
 		},
 		{
-			"name": "Wait 2nd",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://postman-echo.com/delay/5",
-					"protocol": "https",
-					"host": [
-						"postman-echo",
-						"com"
-					],
-					"path": [
-						"delay",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Delete a specific Repo Copy",
 			"event": [
 				{
@@ -381,6 +291,16 @@
 							"pm.environment.unset(\"repo_name\");\r",
 							"pm.environment.unset(\"updatedrepo_name\");\r",
 							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 5000);"
 						],
 						"type": "text/javascript",
 						"packages": {}
